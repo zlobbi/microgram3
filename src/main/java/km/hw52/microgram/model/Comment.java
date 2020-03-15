@@ -3,6 +3,7 @@ package km.hw52.microgram.model;
 import km.hw52.microgram.util.Generator;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -13,6 +14,7 @@ import static java.lang.String.valueOf;
 
 @Data
 @Document
+@CompoundIndex(def = "{'commentator' : 1, 'commentFor' : 1}")
 public class Comment {
     private static Random r = new Random();
 

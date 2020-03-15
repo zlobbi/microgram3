@@ -19,6 +19,7 @@ public class Publication {
     @Id
     private String id;
     @DBRef
+    @Indexed
     private User user;
     private String image;
     private String description;

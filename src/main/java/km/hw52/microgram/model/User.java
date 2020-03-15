@@ -3,17 +3,16 @@ package km.hw52.microgram.model;
 import km.hw52.microgram.util.Generator;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import static java.lang.String.valueOf;
 
 @Data
 @Document(collection = "users")
+@CompoundIndex(def = "{'email' : 1, 'login' : 1}")
 public class User {
 
     @Id
@@ -58,12 +57,6 @@ public class User {
     public void plusPublication() { this.publicationsCount++; }
 
     public int getPublicationsCoutn() { return this.publicationsCount; }
-
-
-//
-//    public int getPublicationsCount() {
-//        return this.publications.size();
-//    }
 
     // Subscribtions actions -----------------------------
 
