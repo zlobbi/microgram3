@@ -8,6 +8,8 @@ import java.util.List;
 public interface LikeRepository extends CrudRepository<Like, String> {
 
     List<Like> findAllByLikeForPublication(String likeFor);
+
+    boolean findByLikeByUser_IdAndLikeForPublication_Id(String userId, String publicationId);
 }
 // get publication date
 // get publisher

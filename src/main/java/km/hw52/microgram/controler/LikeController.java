@@ -20,4 +20,13 @@ public class LikeController {
         model.addAttribute("likes", likes);
         return "likes";
     }
+
+    @GetMapping("/like/{byId}/{forId}")
+    public String doLike(@PathVariable("byId") String by, @PathVariable("forId") String forId) {
+        if(!likeRepo.findByLikeByUser_IdAndLikeForPublication_Id(by, forId)) {
+            // action
+        }
+        // than redirect to publication view
+        return "";
+    }
 }
