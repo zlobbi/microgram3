@@ -112,6 +112,8 @@ public class DatabasePreloader {
             System.out.println("\nSubscribtions");
             subscribtionRepo.findAll().forEach(s -> System.out.println(s));
 
+            System.out.println("go to: http://localhost:9292/");
+
         };
     }
 }
