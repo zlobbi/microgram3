@@ -1,28 +1,35 @@
 package km.hw52.microgram.controler;
 
-import km.hw52.microgram.model.Comment;
-import km.hw52.microgram.model.Like;
-import km.hw52.microgram.model.Publication;
-import km.hw52.microgram.model.User;
-import km.hw52.microgram.repository.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
+import km.hw52.microgram.annotations.ApiPageable;
+import km.hw52.microgram.dto.CommentDTO;
+import km.hw52.microgram.service.CommentService;
+import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
-@org.springframework.stereotype.Controller
+@RestController
+@RequestMapping("/comments")
 public class CommentController {
-    @Autowired
-    CommentRepository commentRepo;
 
-    @GetMapping("/comments/{commentFor}")
-    public String getCommentsForPubl(@PathVariable("commentFor") String commentFor, Model model) {
-        List<Comment> comments = commentRepo.findAllByCommentForId(commentFor);
-        model.addAttribute("comments", comments);
-        return "comments";
+    private final CommentService commentService;
+
+    public CommentController(CommentService commentService) {
+        this.commentService = commentService;
+    }
+
+    @ApiPageable
+    @GetMapping
+    public Slice<CommentDTO> getAllComments(@ApiIgnore Pageable pageable) {
+        return commentService.findAllComments(pageable);
+    }
+
+    @GetMapping("/{commentFor}")
+    public Slice<CommentDTO> getAllCommentsForPublicationById(String id, @ApiIgnore Pageable pageable) {
+        return commentService.findAllCommentsForPublication(id, pageable);
     }
 }
