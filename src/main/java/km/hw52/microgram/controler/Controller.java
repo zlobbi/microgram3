@@ -8,8 +8,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class Controller {
-    @Autowired
-    UserRepository userRepo;
+    private final UserRepository userRepo;
+
+    public Controller(UserRepository userRepo) {
+        this.userRepo = userRepo;
+    }
 
     @GetMapping
     public Iterable<User> rootHandler() {

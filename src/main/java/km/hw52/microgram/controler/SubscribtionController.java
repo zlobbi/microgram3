@@ -25,13 +25,13 @@ public class SubscribtionController {
 
     @GetMapping("/uifollow/{userId}")
     public String getPublicationsByUserId(@PathVariable("userId") String userId, Model model) {
-        List<Subscribtion> subs = subscribtionRepo.findAllBySubscriber_Id(userId);
-        List<Publication> publ = new ArrayList<>();
-        for(Subscribtion s : subs) {
-            publ = StreamSupport.stream(publicationRepo.findAllByUserId(s.getSubscribiant().getId()).spliterator(), true )
-                    .collect(Collectors.toList());
-        }
-        model.addAttribute("publications", publ);
+//        List<Subscribtion> subs = subscribtionRepo.findAllBySubscriber_Id(userId);
+//        List<Publication> publ = new ArrayList<>();
+//        for(Subscribtion s : subs) {
+//            publ = StreamSupport.stream(publicationRepo.findAllByUserId(s.getSubscribiant().getId()).spliterator(), true )
+//                    .collect(Collectors.toList());
+//        }
+//        model.addAttribute("publications", publ);
         return "uifollow";
     }
 }

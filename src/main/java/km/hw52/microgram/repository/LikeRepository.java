@@ -1,13 +1,13 @@
 package km.hw52.microgram.repository;
 
 import km.hw52.microgram.model.Like;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
-import java.util.List;
+public interface LikeRepository extends PagingAndSortingRepository<Like, String> {
 
-public interface LikeRepository extends CrudRepository<Like, String> {
-
-    List<Like> findAllByLikeForPublication(String likeFor);
+    Slice<Like> findAllByLikeForPublication(String likeFor, Pageable pageable);
 
     boolean findByLikeByUser_IdAndLikeForPublication_Id(String userId, String publicationId);
 }
