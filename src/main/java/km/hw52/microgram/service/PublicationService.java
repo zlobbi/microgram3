@@ -1,8 +1,6 @@
 package km.hw52.microgram.service;
 
-import km.hw52.microgram.dto.LikeDTO;
 import km.hw52.microgram.dto.PublicationDTO;
-import km.hw52.microgram.repository.LikeRepository;
 import km.hw52.microgram.repository.PublicationRepository;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;

@@ -1,29 +1,38 @@
 package km.hw52.microgram.controler;
 
-import km.hw52.microgram.model.Publication;
-import km.hw52.microgram.model.Subscribtion;
+import km.hw52.microgram.annotations.ApiPageable;
+import km.hw52.microgram.dto.SubscribtionDTO;
 import km.hw52.microgram.repository.PublicationRepository;
 import km.hw52.microgram.repository.SubscribtionRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import km.hw52.microgram.service.PublicationService;
+import km.hw52.microgram.service.SubscribtionService;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.ApiIgnore;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
-
-
-@org.springframework.stereotype.Controller
+@RestController
+@RequestMapping("/subscribtions")
 public class SubscribtionController {
-    @Autowired
-    PublicationRepository publicationRepo;
+    private final PublicationService publicationService;
+    private final SubscribtionService subscribtionService;
 
-    @Autowired
-    SubscribtionRepository subscribtionRepo;
+    public SubscribtionController(PublicationService publicationService, SubscribtionService subscribtionService) {
+        this.publicationService = publicationService;
+        this.subscribtionService = subscribtionService;
+    }
 
-    @GetMapping("/uifollow/{userId}")
+    @ApiPageable
+    @GetMapping
+    public Slice<SubscribtionDTO> getAllSubscritbtions(@ApiIgnore Pageable pageable) {
+        return subscribtionService.findAllSubscribtions(pageable);
+    }
+
+    @GetMapping("/{userId}")
     public String getPublicationsByUserId(@PathVariable("userId") String userId, Model model) {
 //        List<Subscribtion> subs = subscribtionRepo.findAllBySubscriber_Id(userId);
 //        List<Publication> publ = new ArrayList<>();
